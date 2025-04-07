@@ -15,6 +15,9 @@ jobs:
 
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v3
+        with:
+          project_id: YOUR_GCP_PROJECT_ID
+          credentials_json: ${{ secrets.GCP_KEY }}
        
       - name: Authenticate with Google Cloud
         run: gcloud auth activate-service-account --key-file="${{ secrets.GCP_KEY }}"
