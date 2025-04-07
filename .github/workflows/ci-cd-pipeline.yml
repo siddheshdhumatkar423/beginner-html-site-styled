@@ -1,0 +1,25 @@
+name: CI/CD Pipeline to GCP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v3
+       
+      - name: Authenticate with Google Cloud
+        run: gcloud auth activate-service-account --key-file="${{ secrets.GCP_KEY }}"
+
+      - name: Deploy to Google App Engine
+        run: |
+          gcloud app browse
+          gcloud app deploy
